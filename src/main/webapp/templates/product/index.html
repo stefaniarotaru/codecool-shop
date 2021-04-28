@@ -32,33 +32,58 @@
 
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
+
+    <form method="get">
+        <input type="hidden" name="sortParameter" th:value="1">
+        <button id="sort_button_1">Sort by category</button>
+    </form>
+
+    <form method="get">
+        <input type="hidden" name="sortParameter" th:value="2">
+        <button id="sort_button_2">Sort by supplier</button>
+    </form>
+
+    <a href="cart.html">
+        <button id="checkout"><img src="/static/img/checkout_button.jpg" alt="Go to cart"></button>
+    </a>
+
+
+
+
 </div>
 
-<div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
+<div th:each="prodCategory,prodCategories : ${categories}">
 
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+    <div class="container">
+        <div class="card">
+            <strong th:text="${prodCategory.name}">Category Title</strong>
+        </div>
+
+        <div id="products" class="row">
+
+            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products.getBy(prodCategory)}">
+                <div class="card">
+                    <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                    <div class="card-header">
+                        <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                        <p class="card-text" th:text="${prod.description}">Product description... </p>
                     </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                        </div>
+                        <div class="card-text">
+                            <form method="post" action="index.html">
+                                <input type="hidden" name="productId" th:value="${prod.id}">
+                                <button type="submit" class="btn btn-success">Add to cart</button>
+                            </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <div th:replace="footer.html :: copy"></div>

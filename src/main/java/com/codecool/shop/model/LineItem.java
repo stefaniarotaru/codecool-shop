@@ -5,10 +5,10 @@ public class LineItem {
     private int quantity;
     private float subtotal;
 
-    public LineItem(Product product, int quantity, float subtotal) {
+    public LineItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.subtotal = subtotal;
+        this.subtotal = product.getDefaultPrice() * quantity;
     }
 
     public Product getProduct() {
@@ -31,9 +31,10 @@ public class LineItem {
         return subtotal;
     }
 
-    public void setSubtotal(float subtotal) {
-        this.subtotal = subtotal;
+    public void updateSubtotal(){
+        subtotal = product.getDefaultPrice() * quantity;
     }
+
 
     @Override
     public String toString() {
