@@ -1,18 +1,10 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.ShoppingCartDaoImpl;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.model.LineItem;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.ShoppingCart;
-import com.codecool.shop.model.Supplier;
-import com.codecool.shop.service.ProductService;
+import com.codecool.shop.dao.OrderDao;
+
+import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.model.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -29,31 +21,24 @@ import java.util.List;
 @WebServlet(name = "cartController",urlPatterns = {"/cart.html"})
 public class CartController extends HttpServlet {
 
-    ProductDao productDataStore = ProductDaoMem.getInstance();
-    ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    ShoppingCartDaoImpl shoppingCartDao =  ShoppingCartDaoImpl.getInstance();
+    private OrderDao orderDao = OrderDaoMem.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ShoppingCart shoppingCart = ShoppingCartDaoImpl.getShoppingCart();
+        OrderDao orderDao = OrderDaoMem.getInstance();
+        Order order = orderDao.getOrder();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        context.setVariable("shoppingCart", shoppingCart.getItems());
+        context.setVariable("shoppingCart", order.getLineItems());
 
-        float total =0;
+        context.setVariable("total",order.getTotal());
 
-        for(int i = 0;i < shoppingCartDao.getShoppingCart().getItems().size();i++){
-            total = total + shoppingCartDao.getShoppingCart().getItems().get(i).getSubtotal();
-        }
+        System.out.println(order.getTotal());
 
-        context.setVariable("total",total);
-
-        System.out.println(total);
-
-        engine.process("product/cart.html", context, resp.getWriter());
+        engine.process("cart.html", context, resp.getWriter());
 
 
         }
@@ -68,16 +53,9 @@ public class CartController extends HttpServlet {
         System.out.println("FIRST PARAMETER:" +req.getParameter("increment") + "  " + "SECOND PARAMETER: " + req.getParameter("productId") );
 
         if(increment){
-            shoppingCartDao.increment(productId);
+            orderDao.increment(productId);
         }else{
-            shoppingCartDao.decrement(productId);
-        }
-
-        for (LineItem item:shoppingCartDao.getShoppingCart().getItems()){
-            if(item.getProduct().getId() == productId){
-                item.updateSubtotal();
-                break;
-            }
+            orderDao.decrement(productId);
         }
 
 

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+
+    <script src="/static/js/payment.js" defer></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+
+
+</head>
+<body>
+    <span>Total: </span>
+    <span th:text="${orderTotal}"></span>
+
+    <br>
+
+
+    <label for="paymentOptions">Select a payment option: </label>
+    <select id="paymentOptions" onchange="paymentOptionDisplay()">
+        <option value="select" selected>Select...</option>
+        <option value="card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+    </select>
+    <input name="orderId" type="hidden" th:value="${orderId}" />
+
+    <div id="cardPayment" style="display: none">
+        <form action="/payment" method="post">
+            Name:  <input name="name" type="text"> <br> <br>
+            Card Number:  <input name="cardNumber" type="text" minlength="16" maxlength="16"> <br><br>
+            Expiration Date: <select name="expirationMonth" id="month"></select>
+            <input name="expirationYear" type="number" value="2025" min="2020">
+            <br><br>
+            Security code: <input name="securityCode" type="text" minlength="3" maxlength="3">
+            <br><br>
+            <input name="paymentType" value="card" type="hidden">
+
+            <button type="submit" class="btn btn-success">Confirm payment</button>
+        </form>
+    </div>
+
+    <div id="paypalPayment" style="display: none">
+        <form action="/payment" method="post">
+            Username: <input name="payPalUser" type="text"> <br>
+            Password: <input name="payPalPassword" type="password">
+            <br>
+            <input name="paymentType" value="payPal" type="hidden">
+
+            <button type="submit" class="btn btn-success">Confirm payment</button>
+        </form>
+    </div>
+
+</body>
+</html>

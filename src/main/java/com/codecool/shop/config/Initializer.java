@@ -53,15 +53,5 @@ public class Initializer implements ServletContextListener {
 
         productDataStore.add(new Product("Amazon Omega SmartPhone", 99.9f, "USD", "Fantastic price. Large phone.", smartPhone, amazon));
         productDataStore.add(new Product("Lenovo End Game", 1979, "USD", "Very pricey", smartPhone, lenovo));
-
-        List<LineItem> lineItems = new ArrayList<>();
-        lineItems.add(new LineItem(lenovoTablet, 1, lenovoTablet.getDefaultPrice()));
-        Order order = new Order(
-                lineItems,
-                lenovoTablet.getDefaultPrice(),
-                new User("Stef", "whatever@blah","07662452"),
-                new Address("Romania", "Bucharest", "65465", "nah"),
-                new Address("Romania", "Bucharest", "65465", "nahhhh"));
-        orderDataStore.add(order);
     }
 }

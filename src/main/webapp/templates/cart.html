@@ -15,7 +15,7 @@
 <div th:each="item,shopping_cart:${shoppingCart}">
     <div class="row">
         <div th:text="${item.getProduct().getName()}"></div>
-        <input class=demoInput type=number th:value="${item.getQuantity()}" min=1 max=110>
+        <input class=demoInput type=number disabled th:value="${item.getQuantity()}" min=1 max=110>
 
         <form method="post" action="cart.html">
             <input type="hidden" name="productId" th:value="${item.getProduct().getId()}">
@@ -34,7 +34,7 @@
     <div th:text="${total}"></div>
 
     <div id="goToPayment">
-        <form method="get" action="payment.html">
+        <form method="get" action="/payment">
             <button> Go to payment</button>
         </form>
     </div>

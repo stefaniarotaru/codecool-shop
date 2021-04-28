@@ -1,18 +1,25 @@
 package com.codecool.shop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
     private int id;
     private List<LineItem> lineItems;
     private float total;
+    private String currency;
     private User user;
     private Address shippingAddress;
     private Address billingAddress;
 
-    public Order(List<LineItem> lineItems, float total, User user, Address shippingAddress, Address billingAddress) {
+    public Order() {
+        this.lineItems = new ArrayList<>();
+    }
+
+    public Order(List<LineItem> lineItems, float total, String currency, User user, Address shippingAddress, Address billingAddress) {
         this.lineItems = lineItems;
         this.total = total;
+        this.currency = currency;
         this.user = user;
         this.shippingAddress = shippingAddress;
         this.billingAddress = billingAddress;
@@ -40,6 +47,14 @@ public class Order {
 
     public void setTotal(float total) {
         this.total = total;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public User getUser() {
@@ -78,12 +93,14 @@ public class Order {
         return String.format("id: %1$d," +
                         "lineItems: %2$s," +
                         "total: %3$f," +
-                        "user: %4$s," +
-                        "shippingAddress: %5$s," +
-                        "billingAddress: %6$s",
+                        "currency: %4$s," +
+                        "user: %5$s," +
+                        "shippingAddress: %6$s," +
+                        "billingAddress: %7$s",
                 this.id,
                 sb.toString(),
                 this.total,
+                this.currency,
                 this.user,
                 this.shippingAddress,
                 this.billingAddress);
