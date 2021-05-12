@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/4.7.0/css/font-awesome.min.css">
+<!--    <link rel="stylesheet" type="text/css" href="/static/css/custom2.css" />-->
+</head>
+
+<body>
+
+
+<div th:each="item,shopping_cart:${shoppingCart}">
+    <div class="row">
+        <div th:text="${item.getProduct().getName()}"></div>
+        <input class=demoInput type=number disabled th:value="${item.getQuantity()}" min=1 max=110>
+
+        <form method="post" action="cart.html">
+            <input type="hidden" name="productId" th:value="${item.getProduct().getId()}">
+            <input type="hidden" name="increment" th:value="${true}">
+            <button type="submit" onclick="increment()">+</button>
+        </form>
+
+        <form method="post" action="cart.html">
+        <input type="hidden" name="productId" th:value="${item.getProduct().getId()}">
+        <input type="hidden" name="increment" th:value="${false}">
+        <button type="submit" onclick="decrement()">-</button>
+        </form>
+    </div>
+</div>
+
+    <div th:text="${total}"></div>
+
+    <div id="goToPayment">
+        <form method="get" action="/payment">
+            <button> Go to payment</button>
+        </form>
+    </div>
+
+
+
+<script>
+    function increment() {
+        document.getElementById('demoInput').stepUp();
+    }
+    function decrement() {
+        document.getElementById('demoInput').stepDown();
+    }
+</script>
+
+</body>
+
+</html>

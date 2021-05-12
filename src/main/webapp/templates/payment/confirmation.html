@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment confirmation</title>
+</head>
+<body>
+<p th:if="${paymentType == 'card'}">
+    Thanks, <span th:text="${name}">FRIEND</span>! The order was placed with the credit card ending in
+    <span th:text="${last4Digits}">some numbers</span>
+</p>
+
+<p th:if="${paymentType == 'payPal'}"> Thanks, <span th:text="${username}">blah</span>! Your order has been placed! </p>
+</body>
+</html>
