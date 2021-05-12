@@ -5,11 +5,13 @@ public class User {
     private String name;
     private String email;
     private String phone;
+    private String password;
 
-    public User(String name, String email, String phone) {
+    public User(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.password = password;
     }
 
     public int getId() {
@@ -44,6 +46,14 @@ public class User {
         this.phone = phone;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return String.format("id: %1$d," +
@@ -54,6 +64,5 @@ public class User {
                 this.name,
                 this.email,
                 this.phone);
-
     }
 }
