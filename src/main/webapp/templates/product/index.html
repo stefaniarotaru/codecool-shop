@@ -31,6 +31,14 @@
 <body>
 
 <div class="jumbotron text-center">
+    <div th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
+
+    <form action="/user/register">
+        <button type="submit">Register</button>
+    </form>
+
     <h1>Codecool Shop</h1>
 
     <form method="get">

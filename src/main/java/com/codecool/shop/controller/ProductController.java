@@ -26,7 +26,7 @@ public class ProductController extends HttpServlet {
     OrderDao orderDao = OrderDaoMem.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         int sortParameter = 0;
         if(req.getParameter("sortParameter") !=null){
