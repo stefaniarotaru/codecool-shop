@@ -1,5 +1,7 @@
 # Codecool shop (sprint 2)
 
+![Screenshot 1](src/main/webapp/static/img/imageedit_18_3734283321.png)
+![Screenshot 2](src/main/webapp/static/img/imageedit_20_5313585353.png)
 ## Story
 
 It's time to enhance the Online Shop, an online eCommerce web-application with Java.
@@ -10,6 +12,7 @@ checkout items and make payments. But also can log in and see the abandoned shop
 > If you don't believe, check their history: [eBay history](https://www.ebayinc.com/company/our-history/)
 
 ## What are you going to learn?
+
 
 - how to log properly and why does it important
 - how to use property files to have project settings separately
